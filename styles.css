@@ -278,3 +278,65 @@ h4 {
     font-size: 20px;
     color: #007bff;
 }
+#tabContent {
+    width: 100%;
+    max-width: 800px;
+}
+
+.form-container,
+.exercise-card {
+    width: 100%;
+}
+.tab {
+    padding: 12px 24px;
+}
+
+.form-container {
+    padding: 25px;
+}
+#tabBar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.tab {
+    flex: 1 1 calc(33,33% - 25px); /* Divide igualmente por 3 */
+    min-width: 100px; /* Evita que fiquem muito pequenas */
+    text-align: center; /* Centraliza o texto */
+}
+@media (max-width: 600px) {
+    .tab {
+        flex: 1 1 calc(15% - 15px); /* Ajusta para telas menores */
+        padding: 15px 10px; /* Reduz o tamanho do padding */
+    }
+}
+.tab i {
+    font-size: 8px; /* Ícones menores */
+}
+
+.tab .close-tab {
+    font-size: 8px; /* Ícone de fechar menor */
+    text-align: center;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.minimize-form-btn {
+    background-color: #ffc107;
+    color: #ffffff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.minimize-form-btn:hover {
+    background-color: #e0a800;
+}

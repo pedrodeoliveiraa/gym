@@ -221,3 +221,66 @@ function saveData() {
     
     localStorage.setItem('workoutData', JSON.stringify(tabs));
 }
+
+function createTab(name, exercises = []) {
+    const tab = document.createElement('div');
+    tab.className = 'tab';
+    tab.innerHTML = `
+        <i class="fas fa-dumbbell"></i> ${name}
+        <i class="fas fa-times close-tab" onclick="confirmDeleteTab(this)"></i>
+    `;
+    tab.addEventListener('click', () => showTabContent(tab));
+
+    document.getElementById('tabBar').insertBefore(tab, document.querySelector('.new-tab-btn'));
+
+    const content = document.createElement('div');
+    content.className = 'tab-content';
+    content.innerHTML = `
+        <div class="form-container">
+            <div class="form-header">
+                <h4>Novo Treino</h4>
+                <button class="btn btn-secondary minimize-form-btn" onclick="toggleNewWorkoutForm(this)">▲</button>
+            </div>
+            <div class="form-body">
+                <div class="input-group">
+                    <label>Nome do Treino</label>
+                    <input type="text" id="exerciseName_${name}" placeholder="Ex: Supino Reto">
+                </div>
+                <div class="input-group">
+                    <label>Peso (kg)</label>
+                    <input type="number" id="weight_${name}" placeholder="Ex: 80">
+                </div>
+                <div class="input-group">
+                    <label>Séries</label>
+                    <input type="number" id="sets_${name}" placeholder="Ex: 4">
+                </div>
+                <div class="input-group">
+                    <label>Repetições</label>
+                    <input type="number" id="repetitions_${name}" placeholder="Ex: 12">
+                </div>
+                <button class="btn btn-primary" onclick="saveExercise('${name}')">Salvar</button>
+            </div>
+        </div>
+        <div class="exercises-container"></div>
+    `;
+    content.style.display = 'none';
+    document.getElementById('tabContent').appendChild(content);
+
+    if (exercises.length > 0) {
+        exercises.forEach(ex => addExercise(ex.name, ex.weight, ex.sets, ex.reps, content.querySelector('.exercises-container')));
+    }
+
+    return tab;
+}
+
+function toggleNewWorkoutForm(button) {
+    const formBody = button.closest('.form-container').querySelector('.form-body');
+    
+    if (formBody.style.display === 'none') {
+        formBody.style.display = 'block';
+        button.textContent = '▲'; // Ícone para expandir
+    } else {
+        formBody.style.display = 'none';
+        button.textContent = '▼'; // Ícone para minimizar
+    }
+}
